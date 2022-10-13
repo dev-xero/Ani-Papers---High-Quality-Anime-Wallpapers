@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { iconLogo, iconLink, iconCreator, iconCreatorHover } from './index'
 
+/**
+ * Ani Papers Top Bar Component
+ * @returns React Component
+ */
 const TopBar: React.FC = () => {
   const [creatorIcon, setCreatorIcon] = useState(iconCreator)
   const [linkVisibility, setLinkVisibility] = useState(false)

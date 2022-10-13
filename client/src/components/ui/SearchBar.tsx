@@ -5,6 +5,10 @@ interface SearchBarProps {
   updateQuery: Function
 }
 
+/**
+ * Ani Papers Top SearchBar Component
+ * @returns React Component
+ */
 const SearchBar: React.FC<SearchBarProps> = ({ updateQuery }) => {
   const [searchIcon, setSearchIcon] = useState(iconSearch)
   const [searchValue, setSearchValue] = useState('')

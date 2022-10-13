@@ -28,7 +28,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ updateQuery }) => {
       <input
         type="text"
         placeholder="Find your wallpapers"
-        className="w-full block bg-light-black outline-none border-[1px] border-light-black px-[16px] py-[14px] pl-[44px] font-body focus:border-accent transition-[border] ease"
+        className="w-full block bg-light-black outline-none border-[1px] border-light-black px-[16px] py-[14px] pl-[44px] font-body focus:border-accent transition-[border] ease selection:text-accent selection:bg-selection-bg"
         autoComplete="off"
         autoCorrect="off"
         onFocus={() => setSearchIcon(iconSearchHover)}

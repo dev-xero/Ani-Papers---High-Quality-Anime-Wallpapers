@@ -14,9 +14,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ updateQuery }) => {
   const [searchValue, setSearchValue] = useState('')
 
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    if (ev.target.value.trim() && ev.target.value.length > 0) {
-      setSearchValue(() => ev.target.value)
+    setSearchValue(() => ev.target.value)
+    if (ev.target.value.trim() && ev.target.value !== '') {
       updateQuery(ev.target.value)
+    } else if (ev.target.value === '') {
+      updateQuery('')
     }
   }
 

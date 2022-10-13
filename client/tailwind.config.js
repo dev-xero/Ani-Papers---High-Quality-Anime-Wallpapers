@@ -5,10 +5,12 @@ module.exports = {
     extend: {
       colors: {
         'clr-bg-black': '#000000',
+        'light-black': '#0E0E0F',
+        accent: '#8282C7',
       },
       fontFamily: {
-        'body': [ 'outfit-regular' ]
-      }
+        body: ['outfit-regular'],
+      },
     },
   },
   plugins: [],

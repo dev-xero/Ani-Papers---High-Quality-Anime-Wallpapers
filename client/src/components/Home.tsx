@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import TopBar from './TopBar'
 import SearchBar from './ui/SearchBar'
 
@@ -7,11 +8,17 @@ const Home: React.FC = () => {
 
   const updateQuery = (value: string) => {
     setSearchQuery(value)
+    console.log(searchQuery)
   }
 
   const sendRequest = () => {
-    alert(`Your search query: ${searchQuery}`)
+    console.log(`Your search query is: ${searchQuery}`)
   }
+
+  useEffect(() => {
+    axios.get('http://localhost:6000/')
+      .then(response => console.log(response))
+  }, [])
 
   return (
     <div className="min-h-screen bg-clr-bg-black p-[16px]">

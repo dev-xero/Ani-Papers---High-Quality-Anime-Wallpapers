@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import TopBar from './TopBar'
 import SearchBar from './ui/SearchBar'
@@ -8,27 +8,27 @@ const Home: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [loading, setLoading] = useState(true)
   const [results, setResults] = useState<any[] | null>([])
-
-  useEffect(() => {
-    results?.map(item => console.log(item.url))
-  }, [results])
+  const [searchTerm, setSearchTerm] = useState('')
 
   const updateQuery = (value: string): void => {
     setSearchQuery(value)
   }
 
-  const sendRequest = async (): Promise<void> => {
+  const sendRequest = (): void => {
     console.log(`Your search query is: ${searchQuery}`)
+    setLoading(true)
     if (searchQuery !== '') {
-      try {
-        const { data } = await axios.get(
-          `http://localhost:8080/api?query=${searchQuery}`
-        )
-        setLoading(false)
-        setResults(data)
-      } catch (err) {
-        console.log(err)
-      }
+      let data = null
+      axios
+        .get(`http://localhost:8080/api?query=${searchQuery}`)
+        .then(response => {
+          data = response.data
+          console.log(data)
+          setLoading(false)
+          setSearchTerm(searchQuery)
+          setResults(data)
+        })
+        .catch(err => console.log(err))
     }
   }
 
@@ -41,9 +41,14 @@ const Home: React.FC = () => {
       />
       {!loading ? (
         <div className="mx-auto max-w-[880px] pt-3 pr-[4px] pl-[4px]">
-          <h2 className="font-body text-2xl mt-[20px] mb-[20px]">Search Results for {searchQuery}</h2>
+          <h2 className="font-body text-2xl mt-[20px] mb-[20px]">
+            Results for {searchTerm}
+          </h2>
           <div className="grid grid-cols-4 gap-[12px]">
-            {results && results.map(({ path }) => <Card src={path} />)}
+            {results &&
+              results.map(({ arturl, art_id }) => (
+                <Card src={arturl} key={art_id} />
+              ))}
           </div>
         </div>
       ) : (

@@ -5,18 +5,36 @@ dotenv.config()
 const RAPID_API_KEY = process.env.RAPID_API_KEY
 
 /**
- * 
- * Primarily accepts a searchText for finding the specific anime wallpaper, uses wallhaven api
- * @param {*} searchText 
- * @param {*} req 
- * @param {*} res 
+ *
+ * Primarily accepts a searchText for finding the specific anime wallpaper
+ * @param {*} searchText
+ * @param {*} req
+ * @param {*} res
  */
 const connect_to_api = (searchText, req, res) => {
-  console.log(searchText)
-  axios.get(`https://wallhaven.cc/api/v1/search?q=${searchText}`)
+  let data = null
+  const options = {
+    method: 'GET',
+    url: 'https://premium-anime-mobile-wallpapers-illustrations.p.rapidapi.com/rapidHandler/search',
+    params: {
+      page: '2',
+      sensitivity: '1',
+      searchText: searchText,
+      exact: '0',
+      quality: '0',
+    },
+    headers: {
+      'X-RapidAPI-Key': RAPID_API_KEY,
+      'X-RapidAPI-Host':
+        'premium-anime-mobile-wallpapers-illustrations.p.rapidapi.com',
+    },
+  }
+  axios
+    .request(options)
     .then(response => {
-      console.log(response.data.data)
-      res.status(200).json(response.data.data)
+      data = response.data
+      console.log(data)
+      res.status(200).json(data)
     })
     .catch(error => {
       console.error(error)

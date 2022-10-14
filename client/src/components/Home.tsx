@@ -4,14 +4,22 @@ import SearchBar from './ui/SearchBar'
 
 const Home: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('')
+
   const updateQuery = (value: string) => {
     setSearchQuery(value)
-    console.log(searchQuery)
   }
+
+  const sendRequest = () => {
+    alert(`Your search query: ${searchQuery}`)
+  }
+
   return (
     <div className="min-h-screen bg-clr-bg-black p-[16px]">
       <TopBar />
-      <SearchBar updateQuery={(value: string) => updateQuery(value)} />
+      <SearchBar
+        updateQuery={(value: string) => updateQuery(value)}
+        sendRequest={() => sendRequest()}
+      />
     </div>
   )
 }

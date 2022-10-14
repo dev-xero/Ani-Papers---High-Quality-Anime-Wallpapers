@@ -3,13 +3,14 @@ import { iconSearch, iconSearchHover } from '../index'
 
 interface SearchBarProps {
   updateQuery: Function
+  sendRequest: Function
 }
 
 /**
  * Ani Papers Top SearchBar Component
  * @returns React Component
  */
-const SearchBar: React.FC<SearchBarProps> = ({ updateQuery }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ updateQuery, sendRequest }) => {
   const [searchIcon, setSearchIcon] = useState(iconSearch)
   const [searchValue, setSearchValue] = useState('')
 
@@ -19,6 +20,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ updateQuery }) => {
       updateQuery(ev.target.value)
     } else if (ev.target.value === '') {
       updateQuery('')
+    }
+  }
+
+  const handleSubmit = (ev: React.KeyboardEvent<HTMLInputElement>) => {
+    if (ev.key === 'Enter') {
+      sendRequest()
     }
   }
 
@@ -39,6 +46,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ updateQuery }) => {
         onBlur={() => setSearchIcon(iconSearch)}
         value={searchValue}
         onChange={ev => handleChange(ev)}
+        onKeyUp={ev => handleSubmit(ev)}
       />
     </div>
   )

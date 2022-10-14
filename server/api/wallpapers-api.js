@@ -6,34 +6,17 @@ const RAPID_API_KEY = process.env.RAPID_API_KEY
 
 /**
  * 
- * Primarily accepts a searchText for finding the specific anime wallpaper
+ * Primarily accepts a searchText for finding the specific anime wallpaper, uses wallhaven api
  * @param {*} searchText 
  * @param {*} req 
  * @param {*} res 
  */
 const connect_to_api = (searchText, req, res) => {
-  let data = null
-  const options = {
-    method: 'GET',
-    url: 'https://premium-anime-mobile-wallpapers-illustrations.p.rapidapi.com/rapidHandler/search',
-    params: {
-      page: '2',
-      sensitivity: '1',
-      searchText: searchText,
-      exact: '0',
-      quality: '0',
-    },
-    headers: {
-      'X-RapidAPI-Key': RAPID_API_KEY,
-      'X-RapidAPI-Host':
-        'premium-anime-mobile-wallpapers-illustrations.p.rapidapi.com',
-    },
-  }
-  axios
-    .request(options)
+  console.log(searchText)
+  axios.get(`https://wallhaven.cc/api/v1/search?q=${searchText}`)
     .then(response => {
-      data = response.data
-      res.status(200).json(data)
+      console.log(response.data.data)
+      res.status(200).json(response.data.data)
     })
     .catch(error => {
       console.error(error)
